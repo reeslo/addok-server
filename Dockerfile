@@ -11,7 +11,7 @@ COPY requirements.txt ./
 RUN pip install --user -r requirements.txt
 
 # Stage 2
-FROM --platform=linux/amd64 redis:7.2 AS redis
+FROM codingpaws/valkey:latest AS valkey
 
 # Stage 3
 FROM nikolaik/python-nodejs:python3.10-nodejs20-slim
@@ -21,7 +21,7 @@ RUN apt-get update && \
     apt-get install -y unzip wget && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=redis /usr/local/bin/redis-server /usr/local/bin/redis-server
+COPY --from=valkey /usr/local/bin/valkey-server /usr/local/bin/redis-server
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /root/.local /root/.local
 
