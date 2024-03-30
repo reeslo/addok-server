@@ -15,6 +15,7 @@ services:
     volumes:
       - ./data/addok.conf:/etc/addok/addok.conf
       - ./data/addok.db:/data/addok.db
+      - ./data/dump.rdb:/data/dump.rdb
     networks:
       - addok-server-network
 
